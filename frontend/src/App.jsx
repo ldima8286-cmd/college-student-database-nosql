@@ -47,8 +47,11 @@ function useAuthCacheBust() {
     return null;
 }
 export default function App() {
-    return (<BrowserRouter>
+    return (<BrowserRouter basename={import.meta.env.BASE_URL}>
       <AppRoutes />
+      {import.meta.env.VITE_DEMO === 'true' && (<div className="fixed bottom-3 right-3 z-50 pointer-events-none rounded-full border border-amber-300 bg-amber-50/95 px-3 py-1 text-xs font-medium text-amber-800 shadow-sm dark:border-amber-700 dark:bg-amber-900/90 dark:text-amber-200">
+          Демо · моковые данные
+        </div>)}
     </BrowserRouter>);
 }
 function AppRoutes() {

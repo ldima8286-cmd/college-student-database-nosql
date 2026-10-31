@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(<React.StrictMode>
       <App />
     </ErrorBoundary>
   </React.StrictMode>);
-if ('serviceWorker' in navigator && import.meta.env.PROD && !IS_LOCALHOST) {
+if ('serviceWorker' in navigator && import.meta.env.PROD && !IS_LOCALHOST && import.meta.env.VITE_DEMO !== 'true') {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch(() => { });
         navigator.serviceWorker.addEventListener('message', (event) => {

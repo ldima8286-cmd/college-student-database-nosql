@@ -1,10 +1,14 @@
 import axios from 'axios';
+import { installDemo } from './demo.js';
 const AUTH_PATHS = ['/auth/login', '/auth/register', '/auth/refresh', '/auth/forgot-password', '/auth/reset-password'];
 const api = axios.create({
     baseURL: '/api',
     timeout: 10000,
     withCredentials: true,
 });
+if (import.meta.env.VITE_DEMO === 'true') {
+    installDemo(api);
+}
 export function getCookie(name) {
     if (typeof document === 'undefined')
         return undefined;
@@ -49,8 +53,9 @@ export async function tryRefresh() {
 }
 function handleSessionExpired() {
     clearLocalCookies();
-    if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
+    const loginPath = `${import.meta.env.BASE_URL}login`;
+    if (window.location.pathname !== loginPath) {
+        window.location.href = loginPath;
     }
 }
 api.interceptors.response.use((response) => response, async (error) => {

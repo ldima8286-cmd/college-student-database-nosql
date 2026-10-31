@@ -132,6 +132,7 @@ MONGO_URI=mongodb+srv://<user>:<password>@<cluster>/college_students?retryWrites
 | `npm run dev` | Backend + frontend с внешней MongoDB |
 | `npm run dev:memory` | Backend с in-memory MongoDB + frontend |
 | `npm run build` | Сборка фронтенда в `frontend/dist` |
+| `npm run build:pages` | Сборка статического демо для GitHub Pages (моковые данные, без backend) |
 | `npm start` | Запуск backend (отдаёт собранный фронтенд) |
 | `npm test` | Все тесты (backend + frontend) |
 | `npm run test:backend` | Интеграционные тесты API |
@@ -200,6 +201,35 @@ npm run e2e -w frontend  # Playwright (нужны установленные б�
 Backend-тесты поднимают отдельную in-memory MongoDB, поэтому реальная база не нужна.
 E2E-конфигурация (`frontend/playwright.config.js`) сама запускает backend в режиме
 `dev:memory` и Vite.
+
+## Демо для GitHub Pages
+
+Статическая демо-версия доступна по адресу:
+
+**https://ldima8286-cmd.github.io/college-student-database-nosql/**
+
+Она собирается без backend и работает полностью в браузере:
+
+```bash
+npm run build:pages
+```
+
+Что происходит в демо-режиме:
+
+- `VITE_DEMO=true` включает моковый адаптер axios (`frontend/src/demo.js`);
+- запросы к `/api` не уходят в сеть — ответы формируются из данных в памяти;
+- предзаполнены студенты, группы, предметы, расписание, оценки, посещаемость,
+  пользователи и аудит;
+- вход выполняется автоматически под администратором; выйти можно кнопкой «Выйти»,
+  после чего на странице входа доступны демо-аккаунты с любым паролем:
+  `admin@college.local`, `curator@college.local`, `user@college.local`;
+- изменения (добавление/удаление студентов, оценки, журнал) работают до перезагрузки
+  страницы;
+- сборка использует base-путь `/college-student-database-nosql/` из
+  `frontend/.env.demo`, создаёт `404.html` для SPA-маршрутов и `.nojekyll`.
+
+Готовые файлы публикуются в отдельную ветку **`gh-pages`**, исходный код остаётся
+в `main`. GitHub Pages настроен на раздачу из ветки `gh-pages` (корень).
 
 ## Docker
 

@@ -14,7 +14,7 @@ export default function AdminNav() {
     const handleLogout = async () => {
         await logout();
         toast.success('Вы вышли');
-        window.location.href = '/login';
+        window.location.href = `${import.meta.env.BASE_URL}login`;
     };
     return (<header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
