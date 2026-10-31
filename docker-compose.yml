@@ -1,0 +1,40 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      MONGO_URI: mongodb://mongo:27017/college_students
+      JWT_SECRET: ${JWT_SECRET:?Задайте JWT_SECRET (не короче 32 символов)}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET:?Задайте REFRESH_TOKEN_SECRET (не короче 32 символов)}
+      RESET_TOKEN_SECRET: ${RESET_TOKEN_SECRET:?Задайте RESET_TOKEN_SECRET (не короче 32 символов)}
+      CORS_ORIGIN: ${APP_URL:-http://localhost:5000}
+      FRONT_URL: ${APP_URL:-http://localhost:5000}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@college.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
+      CURATOR_EMAIL: ${CURATOR_EMAIL:-curator@college.local}
+      CURATOR_PASSWORD: ${CURATOR_PASSWORD:-curator123}
+      CURATOR_GROUP: ${CURATOR_GROUP:-ПО-507}
+      USER_EMAIL: ${USER_EMAIL:-user@college.local}
+      USER_PASSWORD: ${USER_PASSWORD:-user123}
+
+volumes:
+  mongo-data:

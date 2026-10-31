@@ -1,0 +1,14 @@
+node_modules
+**/node_modules
+**/dist
+**/coverage
+**/test-results
+**/playwright-report
+**/logs
+**/.env
+**/.env.local
+.git
+.gitignore
+README.md
+Dockerfile
+docker-compose.yml

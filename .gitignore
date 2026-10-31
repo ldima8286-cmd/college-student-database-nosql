@@ -1,0 +1,36 @@
+# Зависимости
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Сборки
+dist/
+frontend/dist/
+backend/dist/
+
+# Логи и окружение
+*.log
+logs/
+.env
+.env.local
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp
+tmp/
+temp/
+
+# Данные локальной MongoDB (docker volume / mongodb-memory-server)
+data/
+.mongodb/
+
+# Тестовые артефакты
+coverage/
+frontend/coverage/
+frontend/test-results/
+frontend/playwright-report/

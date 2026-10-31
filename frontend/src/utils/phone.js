@@ -1,0 +1,14 @@
+export const PHONE_MAX_LENGTH = 13; // '+' + до 12 цифр (+375 и 9 цифр номера)
+export const PHONE_MAX_DIGITS = 12;
+export function sanitizePhone(input) {
+    const hasPlus = input.startsWith('+');
+    const digits = input.replace(/\D/g, '').slice(0, PHONE_MAX_DIGITS);
+    return `${hasPlus ? '+' : ''}${digits}`.slice(0, PHONE_MAX_LENGTH);
+}
+export function isValidPhone(input) {
+    if (!input)
+        return true;
+    if (input.length > PHONE_MAX_LENGTH)
+        return false;
+    return /^\+?[\d\s()-]*$/.test(input) && input.replace(/\D/g, '').length <= PHONE_MAX_DIGITS;
+}
