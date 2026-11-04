@@ -18,7 +18,8 @@
     "test": "npm run test -w backend && npm run test -w frontend",
     "test:backend": "npm run test -w backend",
     "test:frontend": "npm run test -w frontend",
-    "db:fill": "npm run db:fill -w backend"
+    "db:fill": "npm run db:fill -w backend",
+    "db:seed": "npm run db:seed -w backend"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"

@@ -11,6 +11,7 @@
     "dev:memory": "node scripts/dev-memory.js",
     "start": "node src/index.js",
     "db:fill": "node src/seed-fill.js",
+    "db:seed": "node src/seed-test.js",
     "test": "node --test --test-concurrency=1 test/*.test.js"
   },
   "dependencies": {
